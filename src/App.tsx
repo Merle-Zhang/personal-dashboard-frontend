@@ -8,11 +8,13 @@ import Home from "./pages/Home/Home";
 import Todo from "./pages/Todo/Todo";
 import Finance from "./pages/Finance/Finance";
 import Root from "./pages/Root/Root";
+import ErrorPage from "./ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Index /> },
       {
