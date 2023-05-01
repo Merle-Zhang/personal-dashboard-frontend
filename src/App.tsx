@@ -5,7 +5,7 @@ import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Home from "./pages/Home/Home";
-import Todo from "./pages/Todo/Todo";
+import Todo, { loader as todoLoader } from "./pages/Todo/Todo";
 import Finance from "./pages/Finance/Finance";
 import Root from "./pages/Root/Root";
 import ErrorPage from "./ErrorPage";
@@ -22,8 +22,9 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "todo",
+        path: "todo/:userid",
         element: <Todo />,
+        loader: todoLoader,
       },
       {
         path: "finance",
