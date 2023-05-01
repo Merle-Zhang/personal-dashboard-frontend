@@ -3,21 +3,19 @@ import { useLoaderData, LoaderFunctionArgs } from "react-router-dom";
 
 interface Task {
   id: number;
-  name: string;
+  title: string;
   status: string;
 }
 
 async function getTasks(userid: string): Promise<Task[]> {
+  fetch("http://localhost:8080/tasks")
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error(error));
+  const response = await fetch("http://localhost:8080/tasks");
+  const data = await response.json();
+  const tasks = data["_embedded"]["tasks"];
   userid = ""; // eslint-disable-line
-  const tasks: Task[] = [
-    { id: 1, name: "task1", status: "todo" },
-    { id: 2, name: "task2", status: "todo" },
-    { id: 3, name: "task3", status: "todo" },
-    { id: 4, name: "task4", status: "inprogress" },
-    { id: 5, name: "task5", status: "inprogress" },
-    { id: 6, name: "task6", status: "done" },
-    { id: 7, name: "task7", status: "done" },
-  ];
   return tasks;
 }
 
@@ -38,7 +36,7 @@ const Todo: React.FC = () => {
             {tasks
               .filter((task) => task.status == "todo")
               .map((task) => (
-                <li key={task.id}>{task.name}</li>
+                <li key={task.id}>{task.title}</li>
               ))}
           </ul>
         </li>
@@ -48,7 +46,7 @@ const Todo: React.FC = () => {
             {tasks
               .filter((task) => task.status == "inprogress")
               .map((task) => (
-                <li key={task.id}>{task.name}</li>
+                <li key={task.id}>{task.title}</li>
               ))}
           </ul>
         </li>
@@ -58,7 +56,7 @@ const Todo: React.FC = () => {
             {tasks
               .filter((task) => task.status == "done")
               .map((task) => (
-                <li key={task.id}>{task.name}</li>
+                <li key={task.id}>{task.title}</li>
               ))}
           </ul>
         </li>
